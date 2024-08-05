@@ -1,10 +1,15 @@
-import './App.css';
-import Main from './pages/main/Main';
+import Main from './components/Main';
+import React from 'react';
+import Header from './components/Header';
+import PostEditor from './components/PostEditor';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App">
-      <Main/>
+    <div className="container">
+      <Header />
+      <PostEditor />
+      <Footer />
     </div>
   );
 }
