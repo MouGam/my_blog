@@ -4,9 +4,22 @@ import Markdown from 'react-markdown';
 function PostEditor() {
     const mdRef = useRef(null);
 
+    const [newCategory, setNewCategory] = useState('');
+    const [categoryTemp, setCategoryTemp] = useState('');
+    const [categoryList, setCategoryList] = useState([]);
     const [category, setCategory] = useState('');
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+
+
+    const makeNewCategory = async (newCategoryName)=>{
+        console.log(newCategoryName);
+        return 1;
+    };
+
+    const getCategoryFromServer = async ()=>{
+
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -26,6 +39,19 @@ function PostEditor() {
     return (
         <div className="content">
             <h2>글 쓰기</h2>
+
+            <label htmlFor='makeCategory'>카테고리 새로 만들기</label>
+            <input type='text' id='makeCategory' name='makeCategory' value={newCategory} 
+            onChange={(e)=>setNewCategory(e.target.value)}/>
+            <button id={0} className='categoryListElement' 
+                onClick={(e)=>{
+                    e.preventDefault();
+                    if(makeNewCategory(newCategory))
+                        alert('등록 오류');
+                }}>
+                만들기
+            </button>
+
             <form onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="category">카테고리 지정</label>
@@ -33,10 +59,16 @@ function PostEditor() {
                     type="text" 
                     id="category" 
                     name="category" 
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
+                    value={categoryTemp}
+                    onChange={(e) => {
+                        setCategoryTemp(e.target.value);
+                        getCategoryFromServer();
+                    }}
                 />
+                {categoryList}
             </div>
+
+
             <div className="form-group">
                 <label htmlFor="title">제목</label>
                 <input 
