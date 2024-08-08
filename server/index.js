@@ -1,9 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const pool = require('./db');
-
+const pool = require('./database/db');
 require('dotenv').config();
+
 
 const writeTextRouter = require('./router/writeText');
 
