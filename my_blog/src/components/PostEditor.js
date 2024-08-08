@@ -13,8 +13,25 @@ function PostEditor() {
 
 
     const makeNewCategory = async (newCategoryName)=>{
-        console.log(newCategoryName);
-        return 1;
+        // console.log(process.env.REACT_APP_SERVER_IP);
+        try{
+            const res = await (await fetch(`http://${process.env.REACT_APP_SERVER_IP}/writeText/makeCategory`, 
+                {
+                    method:"POST",
+                    headers: {'Content-Type': 'application/json'},
+                    body:JSON.stringify({name:newCategoryName})
+                }
+            )).json();
+
+            if(res.message === 'ok')
+                return 0;
+            else if(res.message !== 'ok')
+                return 1;
+        }
+        catch(err){
+            console.error(err);
+            return 1;
+        }
     };
 
     const getCategoryFromServer = async ()=>{
@@ -46,7 +63,7 @@ function PostEditor() {
             <button id={0} className='categoryListElement' 
                 onClick={(e)=>{
                     e.preventDefault();
-                    if(makeNewCategory(newCategory))
+                    if(makeNewCategory(newCategory) === 1)
                         alert('등록 오류');
                 }}>
                 만들기
